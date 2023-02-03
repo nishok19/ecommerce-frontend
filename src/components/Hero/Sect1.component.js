@@ -8,7 +8,7 @@ const Section1 = () => {
       {/* Card 1 */}
       <div className="card w-72 h-[20rem] bg-base-100 shadow-xl image-full">
         <figure>
-          <img src="/shoe.jpg" alt="Shoes" />
+          <img src="/images/shoe.jpg" alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">Fashion</h2>
@@ -21,7 +21,7 @@ const Section1 = () => {
       {/* Card 2 */}
       <div className="card w-72 h-[20rem] bg-base-100 shadow-xl image-full">
         <figure>
-          <img src="/shoe.jpg" alt="Shoes" />
+          <img src="/images/shoe.jpg" alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">Electronics</h2>
@@ -34,7 +34,7 @@ const Section1 = () => {
       {/* Card 3 */}
       <div className="card w-72 h-[20rem] bg-base-100 shadow-xl image-full">
         <figure>
-          <img src="/shoe.jpg" alt="Shoes" />
+          <img src="/images/shoe.jpg" alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">Furniture</h2>
@@ -47,7 +47,7 @@ const Section1 = () => {
       {/* Card 4 */}
       <div className="card w-72 h-[20rem] bg-base-100 shadow-xl image-full">
         <figure>
-          <img src="/shoe.jpg" alt="Shoes" />
+          <img src="/images/shoe.jpg" alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">Appliances</h2>
@@ -60,7 +60,7 @@ const Section1 = () => {
       {/* Card 5 */}
       <div className="card w-72 h-[20rem] bg-base-100 shadow-xl image-full">
         <figure>
-          <img src="/shoe.jpg" alt="Shoes" />
+          <img src="/images/shoe.jpg" alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">Offers</h2>
