@@ -6,6 +6,7 @@ export default function Home() {
     <div className="flex flex-col mt-8">
       {/* Product Categories */}
       <Section1 />
+      {/* Current Offers and Coupons Section */}
       <Sect2 />
     </div>
   );

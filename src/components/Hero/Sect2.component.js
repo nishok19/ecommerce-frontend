@@ -32,7 +32,7 @@ const Sect2 = () => {
         </div>
       </div>
       {/* Section-2 Right section */}
-      <div className="flex items-center justify-around h-[500px] bg-gradient-to-r from-cyan-500 to-white rounded-lg">
+      <div className="flex items-center justify-around h-[400px] bg-gradient-to-r from-cyan-500 to-white rounded-lg">
         <div className="basis-1/3 text-[32px] w-[500px]">
           Today's Hot Deals!!! Check this...
         </div>

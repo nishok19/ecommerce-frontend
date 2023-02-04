@@ -11,7 +11,7 @@ const Header = () => {
   // const router = useRouter();
 
   return (
-    <header className="bg-background-default py-4 text-white flex items-center">
+    <header className="bg-background-default py-4 text-white flex items-center sticky top-0 z-50">
       {/* logo */}
       <div className="basis-1/8">
         <Image
@@ -33,10 +33,10 @@ const Header = () => {
             <Link href={"/products"}>Products</Link>
           </li>
           <li>
-            <Link href={""}>About</Link>
+            <Link href={""}>Favouties</Link>
           </li>
           <li>
-            <Link href={""}>Cart</Link>
+            <Link href={""}>About</Link>
           </li>
         </ul>
       </div>

@@ -1,5 +1,11 @@
+import ProductNav from "src/components/Products/ProductNav.component";
+
 const home = () => {
-  return <div>products</div>;
+  return (
+    <>
+      <ProductNav />
+    </>
+  );
 };
 
 export default home;
