@@ -13,6 +13,7 @@ module.exports = withMT({
       colors: {
         background: {
           default: "#03203C",
+          hover: "#383CC1",
         },
         text: {
           link: "#E03B8B",

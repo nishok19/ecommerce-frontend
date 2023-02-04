@@ -1,4 +1,5 @@
 import { Carousel } from "react-responsive-carousel";
+import Link from "next/link";
 
 const Sect2 = () => {
   return (
@@ -24,8 +25,12 @@ const Sect2 = () => {
             <div className="card-body">
               <h2 className="card-title">Singup Now</h2>
               <div className="flex flex-col space-y-4">
-                <button className="btn">Login</button>
-                <button className="btn">SignUp</button>
+                <Link href="/login" className="btn">
+                  Login
+                </Link>
+                <Link href="/signup" className="btn">
+                  SignUp
+                </Link>
               </div>
             </div>
           </div>

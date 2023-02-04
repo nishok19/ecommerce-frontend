@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-  MagnifyingGlassIcon,
-  ShoppingCartIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/outline";
+
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 const Header = () => {
   // const router = useRouter();
@@ -44,8 +43,8 @@ const Header = () => {
       {/* user-profile */}
       <div className="flex basis-1/3">
         {/* search field */}
-        <div className="basis-2/3 flex">
-          <MagnifyingGlassIcon className="w-6 h-auto mx-3" />
+        <div className="basis-2/3 flex items-center">
+          <SearchOutlinedIcon className="" />
           <input
             type="text"
             placeholder="Type here"
@@ -53,15 +52,16 @@ const Header = () => {
           />
         </div>
         <div className="basis-1/3 ml-6 items-center flex">
-          UserName <ChevronDownIcon className="w-4" />
+          UserName
+          <KeyboardArrowDownOutlinedIcon />
         </div>
       </div>
 
       {/* cart */}
       <div className="basis-1/8 ml-auto mr-[44px]">
         <div className="indicator">
-          <span className="indicator-item badge badge-secondary">99+</span>
-          <ShoppingCartIcon className="w-8 h-auto" />
+          <span className="indicator-item badge badge-secondary">7</span>
+          <ShoppingCartOutlinedIcon className="text-[32px]" />
         </div>
       </div>
     </header>
