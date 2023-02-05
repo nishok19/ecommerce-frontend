@@ -1,7 +1,27 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { login } from "src/utils/auth.utils";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [passwd, setPasswd] = useState("");
+
+  const router = useRouter();
+
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const user = { email, password: passwd };
+    const res = await login(user);
+
+    if (!res.success) {
+      router.push("/login");
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
     <div className="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
       {/* <!-- Login component --> */}
@@ -24,6 +44,8 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md border border-gray-300 focus:border-background-hover focus:outline-none focus:ring-1 focus:ring-background-hover py-1 px-1.5 text-gray-500"
                 />
               </div>
@@ -35,6 +57,8 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="*****"
+                  value={passwd}
+                  onChange={(e) => setPasswd(e.target.value)}
                   className="block w-full rounded-md border border-gray-300 focus:border-background-hover focus:outline-none focus:ring-1 focus:ring-background-hover py-1 px-1.5 text-gray-500"
                 />
               </div>
@@ -57,7 +81,10 @@ const Login = () => {
               </div>
 
               <div className="mb-3">
-                <button className="mb-1.5 block w-full text-center text-white bg-background-default hover:bg-background-hover px-2 py-1.5 rounded-md">
+                <button
+                  onClick={loginUser}
+                  className="mb-1.5 block w-full text-center text-white bg-background-default hover:bg-background-hover px-2 py-1.5 rounded-md"
+                >
                   Log in
                 </button>
                 <button className="flex flex-wrap justify-center w-full border border-gray-300 hover:border-gray-500 px-2 py-1.5 rounded-md">

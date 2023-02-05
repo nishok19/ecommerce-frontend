@@ -1,7 +1,42 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { signup } from "src/utils/auth.utils";
+import Toast from "./Toast.component";
 
 const Signup = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [passwd, setPasswd] = useState("");
+  const [confPasswd, setConfPasswd] = useState("");
+
+  const router = useRouter();
+
+  const signupUser = async (e) => {
+    e.preventDefault();
+
+    if (
+      passwd !== confPasswd ||
+      name == "" ||
+      email == "" ||
+      passwd == "" ||
+      confPasswd == ""
+    )
+      return null;
+
+    const user = { username: name, email, password: passwd };
+    const signupUser = await signup(user);
+    if (signupUser.success) {
+      // <Toast msg="User successfully created" />;
+      router.push("/login");
+    } else {
+      return;
+      // <Toast msg="User is not created, error" />
+    }
+    console.log("signeeddd ", signupUser);
+  };
+
   return (
     <div className="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
       {/* <!-- Signin component --> */}
@@ -18,12 +53,25 @@ const Signup = () => {
             {/* <!-- Form --> */}
             <form className="mt-4">
               <div className="mb-3">
+                <label className="mb-2 block text-xs font-semibold">Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="block w-full rounded-md border border-gray-300 focus:border-background-hover focus:outline-none focus:ring-1 focus:ring-background-hover py-1 px-1.5 text-gray-500"
+                />
+              </div>
+
+              <div className="mb-3">
                 <label className="mb-2 block text-xs font-semibold">
                   Email
                 </label>
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md border border-gray-300 focus:border-background-hover focus:outline-none focus:ring-1 focus:ring-background-hover py-1 px-1.5 text-gray-500"
                 />
               </div>
@@ -35,6 +83,8 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="*****"
+                  value={passwd}
+                  onChange={(e) => setPasswd(e.target.value)}
                   className="block w-full rounded-md border border-gray-300 focus:border-background-hover focus:outline-none focus:ring-1 focus:ring-background-hover py-1 px-1.5 text-gray-500"
                 />
               </div>
@@ -46,13 +96,18 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="*****"
+                  value={confPasswd}
+                  onChange={(e) => setConfPasswd(e.target.value)}
                   className="block w-full rounded-md border border-gray-300 focus:border-background-hover focus:outline-none focus:ring-1 focus:ring-background-hover py-1 px-1.5 text-gray-500"
                 />
               </div>
 
               <div className="mb-3">
-                <button className="mb-1.5 block w-full text-center text-white bg-background-default hover:bg-background-hover px-2 py-1.5 rounded-md">
-                  Log in
+                <button
+                  onClick={signupUser}
+                  className="mb-1.5 block w-full text-center text-white bg-background-default hover:bg-background-hover px-2 py-1.5 rounded-md"
+                >
+                  Register
                 </button>
                 <button className="flex flex-wrap justify-center w-full border border-gray-300 hover:border-gray-500 px-2 py-1.5 rounded-md">
                   <GoogleIcon />
@@ -67,7 +122,7 @@ const Signup = () => {
                 Already have an account?
               </span>
               <Link
-                href="#"
+                href="/login"
                 className="text-xs font-semibold text-background-default"
               >
                 Login
