@@ -1,14 +1,12 @@
-import { useState } from "react";
-
 const ProfileNav = ({ selectedNav, setSelectedNav }) => {
-  //   const [selectedNav, setSelectedNav] = useState("General");
+  const selectedOptionStyle = "bg-purple-100 text-background-hover";
 
   return (
-    <nav aria-label="Main Nav" className="flex flex-col space-y-1 w-[12rem]">
+    <nav aria-label="Main Nav" className="flex flex-col space-y-1 w-[12rem] ">
       <button
         className={
           "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "General" ? "bg-gray-400 text-gray-800" : "")
+          (selectedNav === "General" ? selectedOptionStyle : "")
         }
         onClick={() => setSelectedNav("General")}
       >
@@ -18,7 +16,7 @@ const ProfileNav = ({ selectedNav, setSelectedNav }) => {
       <button
         className={
           "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "Teams" ? "bg-gray-400 text-gray-800" : "")
+          (selectedNav === "Teams" ? selectedOptionStyle : "")
         }
         onClick={() => setSelectedNav("Teams")}
       >
@@ -28,31 +26,37 @@ const ProfileNav = ({ selectedNav, setSelectedNav }) => {
       <button
         className={
           "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "Billing" ? "bg-gray-400 text-gray-800" : "")
+          (selectedNav === "Billing" ? selectedOptionStyle : "")
         }
         onClick={() => setSelectedNav("Billing")}
       >
         Billing
       </button>
 
+      {/* --------Admin Settings------------ */}
+
+      <h3 className="text-lg font-medium text-center text-background-hover ">
+        Admin Settings
+      </h3>
+
       <button
         className={
           "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "Invoices" ? "bg-gray-400 text-gray-800" : "")
+          (selectedNav === "Category" ? selectedOptionStyle : "")
         }
-        onClick={() => setSelectedNav("Invoices")}
+        onClick={() => setSelectedNav("Category")}
       >
-        Invoices
+        Category
       </button>
 
       <button
         className={
           "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "Account" ? "bg-gray-400 text-gray-800" : "")
+          (selectedNav === "Products" ? selectedOptionStyle : "")
         }
-        onClick={() => setSelectedNav("Account")}
+        onClick={() => setSelectedNav("Products")}
       >
-        Account
+        Products
       </button>
     </nav>
   );
