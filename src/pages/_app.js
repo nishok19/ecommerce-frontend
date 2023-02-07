@@ -1,16 +1,17 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../styles/globals.css";
-import Header from "src/components/Header.component";
-import Footer from "src/components/Footer.component";
 import MainLayout from "src/layout/main-layout";
+
+import { store } from "src/store/store";
+import { Provider } from "react-redux";
 
 export default function App({ Component, pageProps }) {
   // const user = false;
   return (
-    <>
+    <Provider store={store}>
       <MainLayout>
         <Component {...pageProps} />
       </MainLayout>
-    </>
+    </Provider>
   );
 }

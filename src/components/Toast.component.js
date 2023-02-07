@@ -8,3 +8,9 @@ const Toast = ({ msg }) => {
   );
 };
 export default Toast;
+
+// Steps:
+//  create a global store
+//  add a toast msg and status to that whenever needed
+//  and add a useeffect to trigger whenever the toast msg is added in this File
+//  then show the toast for 5 sec

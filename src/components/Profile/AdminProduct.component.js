@@ -14,6 +14,18 @@ const Product = () => {
 
   const submitProduct = async (e) => {
     e.preventDefault();
+
+    if (
+      prodName == "" ||
+      prodPrice == "" ||
+      prodDesc == "" ||
+      !prodFile ||
+      prodCategory == ""
+    ) {
+      console.log("wooo", prodFile);
+      return null;
+    }
+
     formData.append("files", prodFile);
     formData.set("name", prodName);
     formData.set("price", prodPrice);
@@ -23,7 +35,16 @@ const Product = () => {
     console.log("dataaaaaa......", formData);
     const res = await addProducts(formData);
 
-    console.log("ressss......", res);
+    if (!res.success) {
+      return null;
+    }
+
+    setProdName("");
+    setProdPrice("");
+    setProdDesc("");
+    setProdFile(null);
+    setProdCategory("");
+    console.log("successs ressss......", res);
   };
 
   return (
