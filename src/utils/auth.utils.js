@@ -32,9 +32,9 @@ export const login = async ({ email, password }) => {
         password,
       },
     });
-
+    console.log("dataaaaaaaaaa", res);
     if (!res) throw new Error("Error in 'Login-auth'");
-    return { success: true, user: res.data };
+    return { success: true, user: res.data.user, jwt: res.data.token };
   } catch (err) {
     console.log("Error in login", err);
     return { success: false, err };

@@ -9,7 +9,6 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     addProductsStore: (state, { payload }) => {
-      console.log("payloadddd/...", payload.products);
       state.products = payload.products;
     },
   },

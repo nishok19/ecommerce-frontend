@@ -2,12 +2,14 @@ import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUserStore } from "src/slices/userSlice";
 import { login } from "src/utils/auth.utils";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [passwd, setPasswd] = useState("");
-
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const loginUser = async (e) => {
@@ -18,6 +20,7 @@ const Login = () => {
     if (!res.success) {
       router.push("/login");
     } else {
+      dispatch(addUserStore(res.user));
       router.push("/");
     }
   };

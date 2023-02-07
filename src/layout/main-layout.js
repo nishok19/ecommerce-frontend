@@ -7,12 +7,11 @@ import { addProductsStore } from "src/slices/productSlice";
 import { getProducts } from "src/utils/products.utils";
 
 const MainLayout = ({ children }) => {
-  const isUserLogged = false;
+  const isUserLogged = true;
   const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("what the helll");
     getAllProducts();
   }, []);
 
@@ -22,7 +21,6 @@ const MainLayout = ({ children }) => {
       console.log("error in getting all products");
       return null;
     }
-    console.log("waaat ", res);
     return dispatch(addProductsStore(res?.products));
     // return res.data.then((d) => d).catch((err) => console.log("error...", err));
   };

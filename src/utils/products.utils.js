@@ -11,8 +11,6 @@ export const getProducts = async () => {
 
     if (!res) throw new Error("Error in 'Get Products'");
 
-    console.log("yyyyyyyyyy", res.data);
-
     return { success: true, products: res.data };
   } catch (err) {
     console.log("Error in getting product", err);
