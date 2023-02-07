@@ -11,6 +11,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Products from "./Products.component";
+
+// const ProductNav = () => {
+
+// }
+//  export default ProductNav
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -25,7 +31,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -60,6 +66,7 @@ const ProductNav = () => {
         display: "flex",
         height: "100%",
       }}
+      className=""
     >
       <Tabs
         orientation="vertical"
@@ -67,28 +74,32 @@ const ProductNav = () => {
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider" }}
+        className="w-[10%]"
       >
-        <Tab label="Fashion" {...a11yProps(0)} />
-        <Tab label="Electronics" {...a11yProps(1)} />
-        <Tab label="Home Appliances" {...a11yProps(2)} />
-        <Tab label="Furnitures" {...a11yProps(3)} />
-        <Tab label="Favourites" {...a11yProps(4)} />
+        <Tab label="All" {...a11yProps(0)} />
+        <Tab label="Fashion" {...a11yProps(1)} />
+        <Tab label="Electronics" {...a11yProps(2)} />
+        <Tab label="Home Appliances" {...a11yProps(3)} />
+        <Tab label="Furnitures" {...a11yProps(4)} />
+        <Tab label="Favourites" {...a11yProps(5)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
+      <div className="w-[90%]">
+        <TabPanel value={value} index={0}>
+          <Products />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Item Two
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item Three
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Item Four
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          Item Five
+        </TabPanel>
+      </div>
     </Box>
   );
 };

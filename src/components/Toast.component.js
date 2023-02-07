@@ -1,10 +1,35 @@
 import { CheckCircleOutline } from "@mui/icons-material";
+import { Alert } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetToastStore } from "src/slices/toastSlice";
 
-const Toast = ({ msg }) => {
+const Toast = () => {
+  const [visible, setVisible] = useState(false);
+  const toast = useSelector((state) => state.toast.toast);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (toast?.msg == "") return;
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+      dispatch(resetToastStore());
+    }, 5000);
+  }, [toast]);
+
   return (
-    <Alert icon={<CheckCircleOutline fontSize="inherit" />} severity="success">
-      {msg}
-    </Alert>
+    <>
+      {visible ? (
+        <Alert
+          icon={<CheckCircleOutline fontSize="inherit" />}
+          severity="success"
+        >
+          {toast?.msg}"oooooooooooooooooooo"
+        </Alert>
+      ) : null}
+    </>
   );
 };
 export default Toast;

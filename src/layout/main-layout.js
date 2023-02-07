@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Footer from "src/components/Footer.component";
 import Header from "src/components/Header.component";
+import Toast from "src/components/Toast.component";
 import { addProductsStore } from "src/slices/productSlice";
 import { getProducts } from "src/utils/products.utils";
 
@@ -27,6 +28,7 @@ const MainLayout = ({ children }) => {
 
   return (
     <>
+      <Toast />
       {isUserLogged ? <Header /> : null}
       {children}
       {isUserLogged ? <Footer /> : null}
