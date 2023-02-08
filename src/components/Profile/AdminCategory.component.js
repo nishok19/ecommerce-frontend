@@ -1,19 +1,37 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToastStore } from "src/slices/toastSlice";
 import { addNewCollection } from "src/utils/collection";
 
 const Category = () => {
   const [collectionName, setCollectionName] = useState("");
 
+  const dispatch = useDispatch();
+
   const addCollection = async (e) => {
     e.preventDefault();
+
+    if (collectionName == "") {
+      dispatch(
+        addToastStore({ msg: "Enter the category name", type: "warning" })
+      );
+      return null;
+    }
+
     const res = await addNewCollection(collectionName);
 
     if (!res.success) {
       console.log("Error adding the category");
+      dispatch(
+        addToastStore({ msg: "Error in adding the category", type: "error" })
+      );
       return null;
     }
 
-    collectionName("");
+    dispatch(
+      addToastStore({ msg: "Successfully added the category", type: "success" })
+    );
+    setCollectionName("");
     console.log("Success...created the category");
   };
 

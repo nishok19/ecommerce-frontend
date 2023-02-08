@@ -2,6 +2,20 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:4000";
 
+export const getAllCollections = async () => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/collection`,
+    });
+    if (!res) throw new Error("Error in 'Getting Collections'");
+    return { success: true, collections: res.data.collections };
+  } catch (err) {
+    console.log("Error in getting collection", err);
+    return { success: false, err };
+  }
+};
+
 export const addNewCollection = async (name) => {
   try {
     const res = await axios({

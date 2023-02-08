@@ -52,8 +52,23 @@ const Header = () => {
           />
         </div>
         <div className="basis-1/3 ml-6 items-center flex">
-          UserName
-          <KeyboardArrowDownOutlinedIcon />
+          <div className="dropdown">
+            <label tabIndex={0} className="m-1">
+              UserName
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow text-background-default bg-white rounded-box w-52"
+              >
+                <li>
+                  <Link href={"/profile"}>Profile</Link>
+                </li>
+                <li>
+                  <a>Item 2</a>
+                </li>
+              </ul>
+              <KeyboardArrowDownOutlinedIcon />
+            </label>
+          </div>
         </div>
       </div>
 

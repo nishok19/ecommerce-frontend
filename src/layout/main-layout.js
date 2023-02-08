@@ -4,7 +4,10 @@ import { useDispatch } from "react-redux";
 import Footer from "src/components/Footer.component";
 import Header from "src/components/Header.component";
 import Toast from "src/components/Toast.component";
+import { addCategoryStore } from "src/slices/categorySlice";
 import { addProductsStore } from "src/slices/productSlice";
+import { addToastStore } from "src/slices/toastSlice";
+import { getAllCollections } from "src/utils/collection";
 import { getProducts } from "src/utils/products.utils";
 
 const MainLayout = ({ children }) => {
@@ -14,16 +17,35 @@ const MainLayout = ({ children }) => {
 
   useEffect(() => {
     getAllProducts();
+    getCollections();
   }, []);
 
   const getAllProducts = async () => {
     const res = await getProducts();
     if (!res.success) {
-      console.log("error in getting all products");
+      dispatch(
+        addToastStore({
+          msg: "Something went wrong. Cannot fetch the products",
+          type: "error",
+        })
+      );
       return null;
     }
     return dispatch(addProductsStore(res?.products));
-    // return res.data.then((d) => d).catch((err) => console.log("error...", err));
+  };
+
+  const getCollections = async () => {
+    const res = await getAllCollections();
+    if (!res.success) {
+      dispatch(
+        addToastStore({
+          msg: "Something went wrong. Cannot fetch the categories",
+          type: "error",
+        })
+      );
+      return null;
+    }
+    return dispatch(addCategoryStore(res?.collections));
   };
 
   return (

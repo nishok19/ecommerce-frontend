@@ -12,7 +12,7 @@ export const toastSlice = createSlice({
   initialState,
   reducers: {
     addToastStore: (state, { payload }) => {
-      state.toast = payload.toast;
+      state.toast = payload;
     },
     resetToastStore: (state) => {
       state.toast = {

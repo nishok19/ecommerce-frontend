@@ -1,22 +1,11 @@
 import { useState } from "react";
-// import {
-//   Tabs,
-//   TabsHeader,
-//   TabsBody,
-//   Tab,
-//   TabPanel,
-// } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Products from "./Products.component";
-
-// const ProductNav = () => {
-
-// }
-//  export default ProductNav
+import { useSelector } from "react-redux";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,16 +33,16 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
+const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
     "aria-controls": `vertical-tabpanel-${index}`,
   };
-}
+};
 
 const ProductNav = () => {
   const [value, setValue] = useState(0);
-
+  const categories = useSelector((state) => state.category.category);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -72,22 +61,36 @@ const ProductNav = () => {
         orientation="vertical"
         value={value}
         onChange={handleChange}
-        aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider" }}
         className="w-[10%]"
       >
         <Tab label="All" {...a11yProps(0)} />
-        <Tab label="Fashion" {...a11yProps(1)} />
-        <Tab label="Electronics" {...a11yProps(2)} />
-        <Tab label="Home Appliances" {...a11yProps(3)} />
-        <Tab label="Furnitures" {...a11yProps(4)} />
-        <Tab label="Favourites" {...a11yProps(5)} />
+        {categories.map((category, index) => {
+          return (
+            <Tab
+              label={category?.name}
+              key={category?._id}
+              {...a11yProps(index + 1)}
+            />
+          );
+        })}
+
+        {/* {categories.map((prod) => (
+          <Tab key={prod?._id} label={prod?.name} />
+        ))} */}
       </Tabs>
       <div className="w-[90%]">
         <TabPanel value={value} index={0}>
           <Products />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        {categories.map((category, i) => {
+          return (
+            <TabPanel value={value} index={i + 1}>
+              <Products categoryId={category?._id} />
+            </TabPanel>
+          );
+        })}
+        {/* <TabPanel value={value} index={1}>
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -98,7 +101,7 @@ const ProductNav = () => {
         </TabPanel>
         <TabPanel value={value} index={4}>
           Item Five
-        </TabPanel>
+        </TabPanel> */}
       </div>
     </Box>
   );

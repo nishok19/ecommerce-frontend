@@ -27,7 +27,7 @@ export const addProducts = async (data) => {
     });
 
     if (!res) throw new Error("Error in 'Add Products'");
-    return { success: true, user: res.data };
+    return { success: true, products: res.data };
   } catch (err) {
     console.log("Error in add product", err);
     return { success: false, err };

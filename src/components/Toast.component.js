@@ -1,5 +1,5 @@
 import { CheckCircleOutline } from "@mui/icons-material";
-import { Alert } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetToastStore } from "src/slices/toastSlice";
@@ -21,14 +21,16 @@ const Toast = () => {
 
   return (
     <>
-      {visible ? (
+      {/* {visible ? ( */}
+      <Snackbar open={visible} autoHideDuration={6000}>
         <Alert
-          icon={<CheckCircleOutline fontSize="inherit" />}
-          severity="success"
+          // icon={<CheckCircleOutline fontSize="inherit" />}
+          severity={toast?.type}
         >
-          {toast?.msg}"oooooooooooooooooooo"
+          {toast?.msg}
         </Alert>
-      ) : null}
+      </Snackbar>
+      {/* // ) : null} */}
     </>
   );
 };

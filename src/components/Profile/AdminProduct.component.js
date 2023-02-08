@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToastStore } from "src/slices/toastSlice";
 import { addProducts } from "src/utils/products.utils";
 
 const Product = () => {
@@ -10,19 +12,19 @@ const Product = () => {
     "Select the product category"
   );
 
+  const categories = useSelector((state) => state.category.category);
+
+  const fileEleRef = useRef();
+
+  const dispatch = useDispatch();
+
   const formData = new FormData();
 
   const submitProduct = async (e) => {
     e.preventDefault();
 
-    if (
-      prodName == "" ||
-      prodPrice == "" ||
-      prodDesc == "" ||
-      !prodFile ||
-      prodCategory == ""
-    ) {
-      console.log("wooo", prodFile);
+    if (!prodName || !prodPrice || !prodDesc || !prodFile || !prodCategory) {
+      dispatch(addToastStore({ msg: "Fill all the details", type: "warning" }));
       return null;
     }
 
@@ -32,18 +34,25 @@ const Product = () => {
     formData.set("description", prodDesc);
     formData.set("collectionId", prodCategory);
 
-    console.log("dataaaaaa......", formData);
     const res = await addProducts(formData);
 
     if (!res.success) {
+      dispatch(
+        addToastStore({ msg: "Error in adding the product", type: "error" })
+      );
       return null;
     }
 
     setProdName("");
     setProdPrice("");
     setProdDesc("");
-    setProdFile(null);
+    // setProdFile(null);
+    fileEleRef.current.value = "";
     setProdCategory("");
+
+    dispatch(
+      addToastStore({ msg: "Successfully added the product", type: "success" })
+    );
     console.log("successs ressss......", res);
   };
 
@@ -56,6 +65,7 @@ const Product = () => {
         <input
           type="file"
           name="files"
+          ref={fileEleRef}
           className="file-input w-full max-w-xs"
           onChange={(e) => setProdFile(e.target.files[0])}
         />
@@ -89,16 +99,19 @@ const Product = () => {
         <select
           className="select w-full max-w-xs"
           name="category"
-          value={prodCategory}
-          onChange={(e) => setProdCategory(e.target.value)}
+          // value={prodCategory}
+          onChange={(e) =>
+            setProdCategory(e.target.selectedOptions[0].ariaLabel)
+          }
         >
           <option disabled selected>
             Select the product category
           </option>
-          <option>Fashion</option>
-          <option>Electronics</option>
-          <option>Home Appliances</option>
-          <option>Furnitures</option>
+          {categories?.map((catg) => (
+            <option key={catg?._id} aria-label={catg?._id}>
+              {catg?.name}
+            </option>
+          ))}
         </select>
 
         {/* submit button */}
