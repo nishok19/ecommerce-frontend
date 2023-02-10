@@ -6,7 +6,6 @@ import { store } from "src/store/store";
 import { Provider } from "react-redux";
 
 export default function App({ Component, pageProps }) {
-  // const user = false;
   return (
     <Provider store={store}>
       <MainLayout>

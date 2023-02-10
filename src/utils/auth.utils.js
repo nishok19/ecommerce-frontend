@@ -27,14 +27,30 @@ export const login = async ({ email, password }) => {
     const res = await axios({
       method: "post",
       url: `${baseUrl}/api/auth/login`,
+      withCredentials: true,
       data: {
         email,
         password,
       },
     });
-    console.log("dataaaaaaaaaa", res);
     if (!res) throw new Error("Error in 'Login-auth'");
     return { success: true, user: res.data.user, jwt: res.data.token };
+  } catch (err) {
+    console.log("Error in login", err);
+    return { success: false, err };
+  }
+};
+
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/auth/logout`,
+      withCredentials: true,
+    });
+
+    if (!res) throw new Error("Error in 'Logout-auth'");
+    return { success: true };
   } catch (err) {
     console.log("Error in login", err);
     return { success: false, err };

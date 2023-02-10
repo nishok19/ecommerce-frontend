@@ -7,6 +7,7 @@ export const getAllCollections = async () => {
     const res = await axios({
       method: "get",
       url: `${baseUrl}/api/collection`,
+      withCredentials: true,
     });
     if (!res) throw new Error("Error in 'Getting Collections'");
     return { success: true, collections: res.data.collections };

@@ -7,14 +7,20 @@ export const getProducts = async () => {
     const res = await axios({
       method: "get",
       url: `${baseUrl}/api/products`,
+      withCredentials: true,
     });
 
     if (!res) throw new Error("Error in 'Get Products'");
-
-    return { success: true, products: res.data };
+    console.log(res.data);
+    return {
+      success: true,
+      products: res.data.products,
+      user: res.data.user,
+      statusCode: res.status,
+    };
   } catch (err) {
     console.log("Error in getting product", err);
-    return { success: false, err };
+    return { success: false, statusCode: err?.response?.status, err };
   }
 };
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToastStore } from "src/slices/toastSlice";
-import { addNewCollection } from "src/utils/collection";
+import { addNewCollection } from "src/utils/collection.utils";
 
 const Category = () => {
   const [collectionName, setCollectionName] = useState("");

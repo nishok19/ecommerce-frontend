@@ -11,9 +11,12 @@ export const categorySlice = createSlice({
     addCategoryStore: (state, { payload }) => {
       state.category = payload;
     },
+    resetCategryStore: (state) => {
+      state.category = [];
+    },
   },
 });
 
-export const { addCategoryStore } = categorySlice.actions;
+export const { addCategoryStore, resetCategryStore } = categorySlice.actions;
 
 export default categorySlice.reducer;

@@ -9,12 +9,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUserStore: (state, { payload }) => {
-      console.log("payloadddd/...", payload);
       state.user = payload;
+    },
+    resetUserStore: (state) => {
+      state.user = {};
     },
   },
 });
 
-export const { addUserStore } = userSlice.actions;
+export const { addUserStore, resetUserStore } = userSlice.actions;
 
 export default userSlice.reducer;

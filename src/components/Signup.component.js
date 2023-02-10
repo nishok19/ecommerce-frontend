@@ -28,11 +28,9 @@ const Signup = () => {
     const user = { username: name, email, password: passwd };
     const signupUser = await signup(user);
     if (signupUser.success) {
-      // <Toast msg="User successfully created" />;
       router.push("/login");
     } else {
       return;
-      // <Toast msg="User is not created, error" />
     }
     console.log("signeeddd ", signupUser);
   };

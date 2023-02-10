@@ -1,13 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logout } from "src/utils/auth.utils";
+import { resetCategryStore } from "src/slices/categorySlice";
+import { resetProductsStore } from "src/slices/productSlice";
+import { resetUserStore } from "src/slices/userSlice";
+import { addToastStore } from "src/slices/toastSlice";
+import { useRouter } from "next/router";
 
 const Header = () => {
-  // const router = useRouter();
+  const currUser = useSelector((state) => state.user.user);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const logoutUser = async () => {
+    const res = await logout();
+    dispatch(resetCategryStore());
+    dispatch(resetProductsStore());
+    dispatch(resetUserStore());
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyy");
+    if (!res.success) {
+      dispatch(
+        addToastStore({
+          msg: "Something went wrong. Cannot logout",
+          type: "error",
+        })
+      );
+    }
+    router.push("/login");
+  };
 
   return (
     <header className="bg-background-default py-4 text-white flex items-center sticky top-0 z-50">
@@ -54,7 +81,7 @@ const Header = () => {
         <div className="basis-1/3 ml-6 items-center flex">
           <div className="dropdown">
             <label tabIndex={0} className="m-1">
-              UserName
+              {currUser?.username}
               <ul
                 tabIndex={0}
                 className="dropdown-content menu p-2 shadow text-background-default bg-white rounded-box w-52"
@@ -63,7 +90,7 @@ const Header = () => {
                   <Link href={"/profile"}>Profile</Link>
                 </li>
                 <li>
-                  <a>Item 2</a>
+                  <button onClick={logoutUser}>Logout</button>
                 </li>
               </ul>
               <KeyboardArrowDownOutlinedIcon />
