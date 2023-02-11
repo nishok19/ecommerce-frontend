@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import sampleImg from "public/carter-logo.png";
-
 const Section1 = () => {
   return (
     <div className="flex justify-around w-full">

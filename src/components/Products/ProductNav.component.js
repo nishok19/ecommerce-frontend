@@ -74,10 +74,6 @@ const ProductNav = () => {
             />
           );
         })}
-
-        {/* {categories.map((prod) => (
-          <Tab key={prod?._id} label={prod?.name} />
-        ))} */}
       </Tabs>
       <div className="w-[90%]">
         <TabPanel value={value} index={0}>
@@ -86,22 +82,10 @@ const ProductNav = () => {
         {categories.map((category, i) => {
           return (
             <TabPanel value={value} index={i + 1}>
-              <Products categoryId={category?._id} />
+              <Products key={category?._id} categoryId={category?._id} />
             </TabPanel>
           );
         })}
-        {/* <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Item Four
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          Item Five
-        </TabPanel> */}
       </div>
     </Box>
   );

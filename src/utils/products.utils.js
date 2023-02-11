@@ -11,7 +11,6 @@ export const getProducts = async () => {
     });
 
     if (!res) throw new Error("Error in 'Get Products'");
-    console.log(res.data);
     return {
       success: true,
       products: res.data.products,

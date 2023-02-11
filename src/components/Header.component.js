@@ -40,12 +40,10 @@ const Header = () => {
     <header className="bg-background-default py-4 text-white flex items-center sticky top-0 z-50">
       {/* logo */}
       <div className="basis-1/8">
-        <Image
+        <img
           src="/carter-logo.png"
           alt="logo"
-          width={80}
-          height={40}
-          className="ml-8 object-contain"
+          className="ml-8 object-contain w-[80px] h-auto"
         />
       </div>
 

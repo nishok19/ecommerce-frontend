@@ -26,7 +26,7 @@ const Footer = () => {
       {/* Footer section - 2 */}
       <footer className="footer px-10 py-4 border-t bg-background-default text-white border-base-300">
         <div className="items-center grid-flow-col">
-          <img src="/carter-logo.png" className="w-[100px]" />
+          <img src="/carter-logo.png" className="w-[100px] h-auto" />
           <p>Carter Private Ltd. </p>
         </div>
         <div className="md:place-self-center md:justify-self-end">

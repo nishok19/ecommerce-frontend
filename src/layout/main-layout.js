@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "src/components/Footer.component";
 import Header from "src/components/Header.component";
 import Toast from "src/components/Toast.component";
+// import getAllProducts from "src/helper/helper";
 import { addCategoryStore } from "src/slices/categorySlice";
 import { addProductsStore } from "src/slices/productSlice";
 import { addToastStore } from "src/slices/toastSlice";
@@ -16,15 +17,17 @@ const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
-  const isUserLogged = user.email;
-  console.log(isUserLogged);
+  const isUserLogged = !!user.email;
 
   useEffect(() => {
+    if (isUserLogged) {
+      return;
+    }
     getAllProducts();
     getCollections();
 
-    isUserLogged && router.push("/");
-  }, []);
+    router.push("/");
+  }, [isUserLogged]);
 
   const getAllProducts = async () => {
     const res = await getProducts();
@@ -44,7 +47,6 @@ const MainLayout = ({ children }) => {
 
       return null;
     }
-    console.log("oiwgtuwwwwww", res);
     dispatch(addProductsStore(res?.products));
     dispatch(addUserStore(res.user));
     return;

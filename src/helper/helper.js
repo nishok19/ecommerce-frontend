@@ -2,26 +2,35 @@
 // import { addCategoryStore } from "src/slices/categorySlice";
 // import { addProductsStore } from "src/slices/productSlice";
 // import { addToastStore } from "src/slices/toastSlice";
-// import { getAllCollections } from "src/utils/collection";
+// import { getAllCollections } from "src/utils/collection.utils";
 // import { getProducts } from "src/utils/products.utils";
 
 // export const getAllProducts = async () => {
-//   //   const dispatch = useDispatch();
+//   const dispatch = useDispatch();
 //   const res = await getProducts();
-//   if (!res.success) {
-//     // dispatch(
-//     return addToastStore({
-//       msg: "Something went wrong. Cannot fetch the products",
-//       type: "error",
-//     });
-//     // );
+//   console.log("resss", res);
+//   if (res.statusCode === 401) {
+//     router.push("/login");
 //     return null;
 //   }
-//   return addProductsStore(res?.products);
+//   if (!res.success) {
+//     dispatch(
+//       addToastStore({
+//         msg: "Something went wrong. Cannot fetch the products",
+//         type: "error",
+//       })
+//     );
+//     router.push("/login");
 
-//   //   dispatch(
-//   // );
+//     return null;
+//   }
+//   console.log("oiwgtuwwwwww", res);
+//   dispatch(addProductsStore(res?.products));
+//   dispatch(addUserStore(res.user));
+//   return;
 // };
+
+// export default getAllProducts;
 
 // export const getCollections = async () => {
 //   //   const dispatch = useDispatch();
