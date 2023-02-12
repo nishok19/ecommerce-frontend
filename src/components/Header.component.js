@@ -88,7 +88,7 @@ const Header = () => {
                   <Link href={"/profile"}>Profile</Link>
                 </li>
                 <li>
-                  <button onClick={logoutUser}>Logout</button>
+                  <a onClick={logoutUser}>Logout</a>
                 </li>
               </ul>
               <KeyboardArrowDownOutlinedIcon />

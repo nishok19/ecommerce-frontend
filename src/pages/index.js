@@ -11,7 +11,7 @@ export default function Home() {
       {/* {!isUserLogged ? (
         () => router.push("/login")
       ) : ( */}
-      <div className="flex flex-col mt-8">
+      <div className="flex flex-col justify-center items-center">
         {/* Product Categories */}
         <Section1 />
         {/* Current Offers and Coupons Section */}

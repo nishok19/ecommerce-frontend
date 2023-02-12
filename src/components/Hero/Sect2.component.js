@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const Sect2 = () => {
   return (
-    <div className="flex justify-between items-center mt-20 max-w-screen-2xl mx-[160px]">
+    <div className="flex  items-center mt-20 w-full ">
       {/* Section-2 Left section */}
-      <div className="flex flex-col items-center justify-around space-y-[40px]">
+      <div className="flex flex-col items-center justify-around space-y-[20px] basis-1/3">
         {/* Left Section - 1 */}
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
@@ -20,7 +20,7 @@ const Sect2 = () => {
           </div>
         </div>
         {/* Left Section - 2 */}
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col basis-2/3 ">
           <div className="card w-96 bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title">Singup Now</h2>
@@ -34,11 +34,11 @@ const Sect2 = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* Section-2 Right section */}
       <div className="flex items-center justify-around h-[400px] bg-gradient-to-r from-cyan-500 to-white rounded-lg">
-        <div className="basis-1/3 text-[32px] w-[500px]">
+        <div className="basis-1/3 text-[32px] w-[500px] px-[42px] ">
           Today's Hot Deals!!! Check this...
         </div>
         <div className="basis-2/3 max-w-[600px]">

@@ -81,8 +81,8 @@ const ProductNav = () => {
         </TabPanel>
         {categories.map((category, i) => {
           return (
-            <TabPanel value={value} index={i + 1}>
-              <Products key={category?._id} categoryId={category?._id} />
+            <TabPanel key={category?._id} value={value} index={i + 1}>
+              <Products categoryId={category?._id} />
             </TabPanel>
           );
         })}
