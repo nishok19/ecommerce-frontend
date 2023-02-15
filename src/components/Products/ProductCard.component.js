@@ -1,11 +1,37 @@
+import { useDispatch } from "react-redux";
+import { addToastStore } from "src/slices/toastSlice";
+import { addNewProductToCart } from "src/slices/userSlice";
+import { addToCart } from "src/utils/products.utils";
+
 const ProductCard = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const addProdToCart = async () => {
+    const res = await addToCart(item?._id);
+
+    if (!res.success) {
+      dispatch(
+        addToastStore({
+          msg: "Something went wrong. Cannot add the product to the cart",
+          type: "error",
+        })
+      );
+    } else {
+      dispatch(
+        addToastStore({
+          msg: "Added to the cart",
+          type: "success",
+        })
+      );
+      dispatch(addNewProductToCart(res?.cart));
+    }
+  };
+
   return (
     <article className="rounded-xl bg-white  p-3  hover:shadow-xl hover:transform hover:scale-105 duration-300 basis-1/4 ">
-      {/* w-[450px] mx-[30px] my-[50px]  */}
       <a href="#">
         <div className="relative flex items-end overflow-hidden rounded-xl h-[250px] max-w-[400px]">
           <img
-            // src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
             src={item?.photos[0]?.secure_url}
             alt={item?.name}
             className="w-full h-full object-contain"
@@ -48,32 +74,14 @@ const ProductCard = ({ item }) => {
                 />
               </svg>
 
-              <button className="text-sm">Add to cart</button>
+              <button onClick={addProdToCart} className="text-sm">
+                Add to cart
+              </button>
             </div>
           </div>
         </div>
       </a>
     </article>
   );
-
-  // return (
-  //   <div className="card card-compact bg-base-100 my-6 mx-2 w-[250px] h-[400px] ">
-  //     <figure className=" w-[200px] h-[150px]">
-  //       <img
-  //         className="object-contain object-topblock w-full h-full overflow-hidden"
-  //         src={item?.photos[0]?.secure_url}
-  //         alt="Shoes"
-  //         loading="lazy"
-  //       />
-  //     </figure>
-  //     <div className="card-body">
-  //       <h2 className="card-title">{item?.name}</h2>
-  //       <p>{item?.price}</p>
-  //       <div className="card-actions justify-end">
-  //         <button className="btn btn-primary">Add to cart</button>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 };
 export default ProductCard;

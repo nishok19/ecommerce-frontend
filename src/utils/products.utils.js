@@ -38,3 +38,19 @@ export const addProducts = async (data) => {
     return { success: false, err };
   }
 };
+
+export const addToCart = async (prodctId) => {
+  try {
+    const res = await axios({
+      method: "put",
+      url: `${baseUrl}/api/cart/${prodctId}`,
+      withCredentials: true,
+    });
+
+    if (!res) throw new Error("Error in 'Add Products to cart'");
+    return { success: true, cart: res.data.user.cart };
+  } catch (err) {
+    console.log("Error in add product to cart", err);
+    return { success: false, err };
+  }
+};
