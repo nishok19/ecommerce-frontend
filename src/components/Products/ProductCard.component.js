@@ -17,6 +17,17 @@ const ProductCard = ({ item }) => {
         })
       );
     } else {
+      if (res.status == 204) {
+        dispatch(
+          addToastStore({
+            msg: "Already added this item to the cart",
+            type: "warning",
+          })
+        );
+
+        return;
+      }
+
       dispatch(
         addToastStore({
           msg: "Added to the cart",

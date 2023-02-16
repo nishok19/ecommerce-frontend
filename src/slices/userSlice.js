@@ -15,7 +15,7 @@ export const userSlice = createSlice({
       state.user = {};
     },
     addNewProductToCart: (state, { payload }) => {
-      state.user.cart = [...state.user.cart, payload[0]];
+      state.user.cart = payload;
     },
   },
 });

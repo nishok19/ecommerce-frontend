@@ -47,8 +47,10 @@ export const addToCart = async (prodctId) => {
       withCredentials: true,
     });
 
+    console.log("ressss", res);
+
     if (!res) throw new Error("Error in 'Add Products to cart'");
-    return { success: true, cart: res.data.user.cart };
+    return { success: true, status: res.status, cart: res?.data?.user?.cart };
   } catch (err) {
     console.log("Error in add product to cart", err);
     return { success: false, err };

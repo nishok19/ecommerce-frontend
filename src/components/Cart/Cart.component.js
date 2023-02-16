@@ -1,13 +1,19 @@
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const items = useSelector((state) => state.user.user.cart);
+  const cartItems = useSelector((state) => state.user.user.cart);
+  const allProducts = useSelector((state) => state.products.products);
 
   return (
     <>
-      {items?.map((item) => (
-        <div>{item}</div>
-      ))}
+      {allProducts?.map((product) => {
+        return cartItems?.map((item) => {
+          if (product._id === item.productId) {
+            console.log("carttttttttt", product);
+            return <div>{product?.name}</div>;
+          }
+        });
+      })}
     </>
   );
 };
