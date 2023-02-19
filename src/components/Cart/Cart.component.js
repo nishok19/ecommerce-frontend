@@ -27,15 +27,16 @@ const Cart = () => {
         <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
         <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div className="rounded-lg md:w-2/3">
-            {/* {cartProducts?.map((item) => (
-              <CartCard key={item._id} product={item} />
-            ))} */}
-            {allProducts?.map((product) =>
-              cartItems?.map((item) => {
-                if (product?._id === item?.productId) {
-                  console.log("carttttt", product);
-                  return <CartCard key={product._id} product={product} />;
-                }
+            {cartItems?.length === 0 ? (
+              <p className="text-center">No Items in the cart</p>
+            ) : (
+              allProducts?.map((product) => {
+                return cartItems?.map((item) => {
+                  if (product?._id === item?.productId) {
+                    console.log("carttttt", product);
+                    return <CartCard key={product._id} product={product} />;
+                  }
+                });
               })
             )}
 
@@ -48,14 +49,18 @@ const Cart = () => {
             </div>
             <div className="flex justify-between">
               <p className="text-gray-700">Shipping</p>
-              <p className="text-gray-700">Rs. 100</p>
+              <p className="text-gray-700">
+                Rs. {cartItems.length == 0 ? 0 : 100}
+              </p>
             </div>
             <hr className="my-4" />
             <div className="flex justify-between">
               <p className="text-lg font-bold">Total</p>
               <div className="">
-                <p className="mb-1 text-lg font-bold">Rs. {totalCost + 100}</p>
-                <p className="text-sm text-gray-700">including VAT</p>
+                <p className="mb-1 text-lg font-bold">
+                  Rs. {cartItems.length == 0 ? 0 : totalCost + 100}
+                </p>
+                <p className="text-sm text-gray-700">including GST</p>
               </div>
             </div>
             <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">

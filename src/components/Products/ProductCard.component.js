@@ -6,7 +6,9 @@ import { addToCart } from "src/utils/products.utils";
 const ProductCard = ({ item }) => {
   const dispatch = useDispatch();
 
-  const addProdToCart = async () => {
+  const addProdToCart = async (e) => {
+    e.preventDefault();
+
     const res = await addToCart(item?._id);
 
     if (!res.success) {
