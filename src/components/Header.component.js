@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -12,7 +11,6 @@ import { resetProductsStore } from "src/slices/productSlice";
 import { resetUserStore } from "src/slices/userSlice";
 import { addToastStore } from "src/slices/toastSlice";
 import { useRouter } from "next/router";
-import Cart from "./Cart/Cart.component";
 
 const Header = () => {
   const currUser = useSelector((state) => state.user.user);
@@ -101,7 +99,9 @@ const Header = () => {
       {/* cart */}
       <div className="basis-1/8 ml-auto mr-[44px]">
         <Link href={"/cart"} className="indicator">
-          <span className="indicator-item badge badge-secondary">7</span>
+          <span className="indicator-item badge badge-secondary">
+            {currUser?.cart?.length}
+          </span>
           <ShoppingCartOutlinedIcon className="text-[32px]" />
         </Link>
       </div>

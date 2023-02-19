@@ -3,24 +3,23 @@ import { useSelector } from "react-redux";
 import CartCard from "./CartCard.component";
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.user.user.cart);
+  const user = useSelector((state) => state.user.user);
+  const cartItems = user.cart;
   const allProducts = useSelector((state) => state.products.products);
 
   const [cartProducts, setCartProducts] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
-    allProducts?.map((product) => {
-      cartItems?.map((item) => {
-        if (product?._id === item.productId) {
+    allProducts?.map(async (product) => {
+      await cartItems?.map((item) => {
+        if (product?._id === item?.productId) {
           setTotalCost(totalCost + product?.price);
           setCartProducts((prevState) => [...prevState, product]);
-          console.log("carrrrrrrtttt", cartProducts, product);
         }
       });
     });
-    console.log("dsfadsfadsf", cartProducts);
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -28,18 +27,17 @@ const Cart = () => {
         <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
         <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div className="rounded-lg md:w-2/3">
-            {/* {allProducts?.map((product) => {
-              return cartItems?.map((item) => {
-                if (product._id === item.productId) {
+            {/* {cartProducts?.map((item) => (
+              <CartCard key={item._id} product={item} />
+            ))} */}
+            {allProducts?.map((product) =>
+              cartItems?.map((item) => {
+                if (product?._id === item?.productId) {
+                  console.log("carttttt", product);
                   return <CartCard key={product._id} product={product} />;
                 }
-              });
-            })} */}
-
-            {console.log("sdfa", cartProducts)}
-            {cartProducts?.map((item) => (
-              <CartCard key={item._id} product={item} />
-            ))}
+              })
+            )}
 
             {/* //////////// */}
           </div>

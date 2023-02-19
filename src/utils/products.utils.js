@@ -42,17 +42,56 @@ export const addProducts = async (data) => {
 export const addToCart = async (prodctId) => {
   try {
     const res = await axios({
-      method: "put",
+      method: "post",
       url: `${baseUrl}/api/cart/${prodctId}`,
       withCredentials: true,
     });
-
-    console.log("ressss", res);
 
     if (!res) throw new Error("Error in 'Add Products to cart'");
     return { success: true, status: res.status, cart: res?.data?.user?.cart };
   } catch (err) {
     console.log("Error in add product to cart", err);
+    return { success: false, err };
+  }
+};
+
+export const updateCartItemCount = async (productId, count) => {
+  try {
+    const res = await axios({
+      method: "put",
+      url: `${baseUrl}/api/cart/${productId}`,
+      withCredentials: true,
+      data: {
+        count,
+      },
+    });
+
+    if (!res) throw new Error("Error in 'Update Products count in the cart'");
+    return { success: true, cart: res?.data?.user?.cart };
+  } catch (err) {
+    console.log("Error in updated product count in the cart", err);
+    return { success: false, err };
+  }
+};
+
+export const deleteCartItem = async (productId) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `${baseUrl}/api/cart/${productId}`,
+      withCredentials: true,
+    });
+
+    console.log("ressss", res);
+
+    if (!res) throw new Error("Error in 'Removing the Product from cart'");
+    return {
+      success: true,
+      productId: res.data.productId,
+      cart: res.data.user.cart,
+    };
+  } catch (err) {
+    console.log("Error in deleting the product from the cart", err);
     return { success: false, err };
   }
 };
