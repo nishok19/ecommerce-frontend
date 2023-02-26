@@ -82,8 +82,6 @@ export const deleteCartItem = async (productId) => {
       withCredentials: true,
     });
 
-    console.log("ressss", res);
-
     if (!res) throw new Error("Error in 'Removing the Product from cart'");
     return {
       success: true,
@@ -93,5 +91,26 @@ export const deleteCartItem = async (productId) => {
   } catch (err) {
     console.log("Error in deleting the product from the cart", err);
     return { success: false, err };
+  }
+};
+
+export const searchProducts = async (searchText) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/products/${searchText}`,
+      withCredentials: true,
+    });
+
+    console.log("ressss", res);
+
+    if (!res) throw new Error("Error in 'Searching the Product'");
+    return {
+      success: true,
+      products: res.data.products,
+    };
+  } catch (err) {
+    console.log("Error in searching products", err);
+    return { success: true, err };
   }
 };

@@ -7,13 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "src/utils/auth.utils";
 import { resetCategryStore } from "src/slices/categorySlice";
-import { resetProductsStore } from "src/slices/productSlice";
+import {
+  addSearchedProductsStore,
+  resetProductsStore,
+} from "src/slices/productSlice";
 import { resetUserStore } from "src/slices/userSlice";
 import { addToastStore } from "src/slices/toastSlice";
 import { useRouter } from "next/router";
+import { searchProducts } from "src/utils/products.utils";
+import { useState } from "react";
 
 const Header = () => {
   const currUser = useSelector((state) => state.user.user);
+  const [text, setText] = useState("");
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,7 +29,6 @@ const Header = () => {
     dispatch(resetCategryStore());
     dispatch(resetProductsStore());
     dispatch(resetUserStore());
-    console.log("yyyyyyyyyyyyyyyyyyyyyyyyy");
     if (!res.success) {
       dispatch(
         addToastStore({
@@ -32,7 +37,23 @@ const Header = () => {
         })
       );
     }
+
     router.push("/login");
+  };
+
+  const searchText = async () => {
+    const res = await searchProducts(text);
+    if (!res.success) {
+      dispatch(
+        addToastStore({
+          msg: "Cannot search",
+          type: "error",
+        })
+      );
+    }
+    dispatch(addSearchedProductsStore(res.products));
+
+    router.push("/search");
   };
 
   return (
@@ -68,10 +89,14 @@ const Header = () => {
       <div className="flex basis-1/3">
         {/* search field */}
         <div className="basis-2/3 flex items-center">
-          <SearchOutlinedIcon className="" />
+          <button onClick={searchText}>
+            <SearchOutlinedIcon className="" />
+          </button>
           <input
             type="text"
             placeholder="Type here"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             className="input w-full max-w-[30rem] text-black"
           />
         </div>
