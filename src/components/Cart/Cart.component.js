@@ -50,7 +50,7 @@ const Cart = () => {
             <div className="flex justify-between">
               <p className="text-gray-700">Shipping</p>
               <p className="text-gray-700">
-                Rs. {cartItems.length == 0 ? 0 : 100}
+                Rs. {cartItems?.length == 0 ? 0 : 100}
               </p>
             </div>
             <hr className="my-4" />
@@ -58,7 +58,7 @@ const Cart = () => {
               <p className="text-lg font-bold">Total</p>
               <div className="">
                 <p className="mb-1 text-lg font-bold">
-                  Rs. {cartItems.length == 0 ? 0 : totalCost + 100}
+                  Rs. {cartItems?.length == 0 ? 0 : totalCost + 100}
                 </p>
                 <p className="text-sm text-gray-700">including GST</p>
               </div>
