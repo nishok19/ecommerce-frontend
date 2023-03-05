@@ -102,8 +102,6 @@ export const searchProducts = async (searchText) => {
       withCredentials: true,
     });
 
-    console.log("ressss", res);
-
     if (!res) throw new Error("Error in 'Searching the Product'");
     return {
       success: true,
@@ -111,6 +109,51 @@ export const searchProducts = async (searchText) => {
     };
   } catch (err) {
     console.log("Error in searching products", err);
-    return { success: true, err };
+    return { success: false, err };
+  }
+};
+
+export const placeOrder = async (productIds) => {
+  try {
+    const res = await axios({
+      method: "post",
+      url: `${baseUrl}/api/order/razorpay`,
+      data: {
+        productIds,
+      },
+      withCredentials: true,
+    });
+
+    if (!res) throw new Error("Error in 'Searching the Product'");
+    return {
+      success: true,
+      order: res.data,
+    };
+  } catch (err) {
+    console.log("Error in searching products", err);
+    return { success: false, err };
+  }
+};
+
+export const orderSuccess = async (data) => {
+  try {
+    const res = await axios({
+      method: "post",
+      url: `${baseUrl}/api/order/razorpay/success`,
+      data: {
+        data,
+      },
+      withCredentials: true,
+    });
+
+    console.log("ressss", res);
+
+    if (!res) throw new Error("Error in 'sending order success data'");
+    return {
+      success: true,
+    };
+  } catch (err) {
+    console.log("Error in sending order success data", err);
+    return { success: false, err };
   }
 };

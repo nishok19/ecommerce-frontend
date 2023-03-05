@@ -5,46 +5,25 @@
 // import { getAllCollections } from "src/utils/collection.utils";
 // import { getProducts } from "src/utils/products.utils";
 
-// export const getAllProducts = async () => {
-//   const dispatch = useDispatch();
-//   const res = await getProducts();
-//   console.log("resss", res);
-//   if (res.statusCode === 401) {
-//     router.push("/login");
-//     return null;
-//   }
-//   if (!res.success) {
-//     dispatch(
-//       addToastStore({
-//         msg: "Something went wrong. Cannot fetch the products",
-//         type: "error",
-//       })
-//     );
-//     router.push("/login");
+export const initializePayment = async ({ order }, razorypay_key, user) => {
+  let options = {
+    key: razorypay_key,
+    amount: order.amount,
+    currency: "INR",
+    name: "Carter",
+    description: "Product Purchase",
+    order_id: order.id,
+    // image: "https://example.com/your_logo",
+    prefill: {
+      name: user.username,
+      email: user.email,
+      contact: "9000090000",
+    },
+    handler: function (res) {
+      handleResp(res);
+    },
+  };
 
-//     return null;
-//   }
-//   console.log("oiwgtuwwwwww", res);
-//   dispatch(addProductsStore(res?.products));
-//   dispatch(addUserStore(res.user));
-//   return;
-// };
-
-// export default getAllProducts;
-
-// export const getCollections = async () => {
-//   //   const dispatch = useDispatch();
-//   const res = await getAllCollections();
-//   if (!res.success) {
-//     // dispatch(
-//     return addToastStore({
-//       msg: "Something went wrong. Cannot fetch the categories",
-//       type: "error",
-//     });
-//     // );
-//     return null;
-//   }
-//   return addCategoryStore(res?.collections);
-//   //   dispatch(
-//   // );
-// };
+  let rzp = await new Razorpay(options);
+  rzp.open();
+};

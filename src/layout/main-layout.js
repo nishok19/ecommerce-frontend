@@ -19,6 +19,27 @@ const MainLayout = ({ children }) => {
   const user = useSelector((state) => state.user.user);
   const isUserLogged = !!user.email;
 
+  const initializeRazorpay = (url) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    // Loading Razor-Pay scripts
+    initializeRazorpay("https://checkout.razorpay.com/v1/checkout.js");
+  });
+
   useEffect(() => {
     if (isUserLogged) {
       return;

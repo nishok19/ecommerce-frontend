@@ -1,25 +1,73 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToastStore } from "src/slices/toastSlice";
+import { placeOrder } from "src/utils/products.utils";
 import CartCard from "./CartCard.component";
 
-const Cart = () => {
+const Cart = ({ razorypay_key }) => {
   const user = useSelector((state) => state.user.user);
   const cartItems = user.cart;
   const allProducts = useSelector((state) => state.products.products);
 
-  const [cartProducts, setCartProducts] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
+  const [rzpRes, setRzpRes] = useState();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     allProducts?.map(async (product) => {
       await cartItems?.map((item) => {
         if (product?._id === item?.productId) {
-          setTotalCost(totalCost + product?.price);
-          setCartProducts((prevState) => [...prevState, product]);
+          setTotalCost((prevState) => prevState + product?.price);
         }
       });
     });
-  }, [user]);
+  }, [user, cartItems]);
+
+  const submitOrder = async () => {
+    try {
+      console.log("swwwwwwww", rzpRes);
+      const cartProductIds = cartItems.map((item) => item.productId);
+
+      const res = await placeOrder(cartProductIds);
+
+      if (!res) throw new Error("Error while payment in cart");
+
+      await initializePayment(res.order, razorypay_key, user);
+      console.log("payyyyyyyed", rzpRes);
+    } catch (err) {
+      console.log("Error while payment...", err);
+      dispatch(
+        addToastStore({
+          msg: "Error in Payment",
+          type: "error",
+        })
+      );
+    }
+  };
+
+  const initializePayment = async ({ order }, razorypay_key, user) => {
+    let options = {
+      key: razorypay_key,
+      amount: order.amount,
+      currency: "INR",
+      name: "Carter",
+      description: "Product Purchase",
+      order_id: order.id,
+      // image: "https://example.com/your_logo",
+      prefill: {
+        name: user.username,
+        email: user.email,
+        contact: "9000090000",
+      },
+      handler: function (res) {
+        setRzpRes(res);
+      },
+    };
+
+    let rzp = await new Razorpay(options);
+    await rzp.open();
+  };
 
   return (
     <>
@@ -33,7 +81,6 @@ const Cart = () => {
               allProducts?.map((product) => {
                 return cartItems?.map((item) => {
                   if (product?._id === item?.productId) {
-                    console.log("carttttt", product);
                     return <CartCard key={product._id} product={product} />;
                   }
                 });
@@ -63,8 +110,11 @@ const Cart = () => {
                 <p className="text-sm text-gray-700">including GST</p>
               </div>
             </div>
-            <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
-              Check out
+            <button
+              onClick={submitOrder}
+              className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+            >
+              Place your Order
             </button>
           </div>
         </div>
