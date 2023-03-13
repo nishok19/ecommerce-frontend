@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
-  const isUserLogged = !!user.email;
+  const isUserLogged = !!user?.email;
 
   const initializeRazorpay = (url) => {
     return new Promise((resolve) => {

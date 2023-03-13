@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToastStore } from "src/slices/toastSlice";
-import { placeOrder } from "src/utils/products.utils";
+import { addUserStore } from "src/slices/userSlice";
+import { orderSuccess, placeOrder } from "src/utils/products.utils";
 import CartCard from "./CartCard.component";
 
 const Cart = ({ razorypay_key }) => {
   const user = useSelector((state) => state.user.user);
-  const cartItems = user.cart;
+  const cartItems = user?.cart;
   const allProducts = useSelector((state) => state.products.products);
 
   const [totalCost, setTotalCost] = useState(0);
@@ -24,9 +25,35 @@ const Cart = ({ razorypay_key }) => {
     });
   }, [user, cartItems]);
 
+  useEffect(() => {
+    console.log("payyyyyyyed", rzpRes);
+
+    if (
+      !rzpRes?.razorpay_payment_id &&
+      !rzpRes?.razorpay_order_id &&
+      !rzpRes?.razorpay_signature
+    )
+      return;
+
+    sendSuccessData();
+  }, [rzpRes]);
+
+  const sendSuccessData = async () => {
+    const res = await orderSuccess(rzpRes);
+    if (!res.success) {
+      dispatch(
+        addToastStore({
+          msg: "Error in Updating the payment to the server",
+          type: "error",
+        })
+      );
+    }
+
+    dispatch(addUserStore(res?.user));
+  };
+
   const submitOrder = async () => {
     try {
-      console.log("swwwwwwww", rzpRes);
       const cartProductIds = cartItems.map((item) => item.productId);
 
       const res = await placeOrder(cartProductIds);
@@ -34,7 +61,6 @@ const Cart = ({ razorypay_key }) => {
       if (!res) throw new Error("Error while payment in cart");
 
       await initializePayment(res.order, razorypay_key, user);
-      console.log("payyyyyyyed", rzpRes);
     } catch (err) {
       console.log("Error while payment...", err);
       dispatch(
