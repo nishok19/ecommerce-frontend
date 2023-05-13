@@ -11,9 +11,10 @@ const Product = () => {
   const [prodCategory, setProdCategory] = useState(
     "Select the product category"
   );
+  const [delProduct, setDelProduct] = useState("");
 
   const categories = useSelector((state) => state.category.category);
-
+  const productsStore = useSelector((state) => state.products.products);
   const fileEleRef = useRef();
 
   const dispatch = useDispatch();
@@ -56,69 +57,98 @@ const Product = () => {
     console.log("successs ressss......", res);
   };
 
-  return (
-    <div className="flex items-center justify-center ml-[60px] mt-[30px]">
-      {/* form */}
-      <form onSubmit={submitProduct} className="flex flex-col space-y-6">
-        <h3 className="text-4xl">Create a New Product</h3>
-        {/* image */}
-        <input
-          type="file"
-          name="files"
-          ref={fileEleRef}
-          className="file-input w-full max-w-xs"
-          onChange={(e) => setProdFile(e.target.files[0])}
-        />
-        {/* name */}
-        <input
-          type="text"
-          name="name"
-          placeholder="Product name"
-          className="input w-full max-w-xs"
-          value={prodName}
-          onChange={(e) => setProdName(e.target.value)}
-        />
-        {/* price */}
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          className="input w-full max-w-xs"
-          value={prodPrice}
-          onChange={(e) => setProdPrice(e.target.value)}
-        />
-        {/* description */}
-        <textarea
-          className="textarea"
-          name="description"
-          placeholder="Product description"
-          value={prodDesc}
-          onChange={(e) => setProdDesc(e.target.value)}
-        ></textarea>
-        {/* category id */}
-        <select
-          className="select w-full max-w-xs"
-          name="category"
-          // value={prodCategory}
-          onChange={(e) =>
-            setProdCategory(e.target.selectedOptions[0].ariaLabel)
-          }
-        >
-          <option disabled selected>
-            Select the product category
-          </option>
-          {categories?.map((catg) => (
-            <option key={catg?._id} aria-label={catg?._id}>
-              {catg?.name}
-            </option>
-          ))}
-        </select>
+  const deleteProduct = () => {
+    console.log("first", delProduct);
+  };
 
-        {/* submit button */}
-        <button type="submit" className="btn btn-outline">
-          Submit
-        </button>
-      </form>
+  return (
+    <div className="flex flex-col">
+      <div className="flex items-center justify-center ml-[60px] mt-[30px]">
+        {/* form */}
+        <form onSubmit={submitProduct} className="flex flex-col space-y-6">
+          <h3 className="text-4xl">Create a New Product</h3>
+          {/* image */}
+          <input
+            type="file"
+            name="files"
+            ref={fileEleRef}
+            className="file-input w-full max-w-xs"
+            onChange={(e) => setProdFile(e.target.files[0])}
+          />
+          {/* name */}
+          <input
+            type="text"
+            name="name"
+            placeholder="Product name"
+            className="input w-full max-w-xs"
+            value={prodName}
+            onChange={(e) => setProdName(e.target.value)}
+          />
+          {/* price */}
+          <input
+            type="text"
+            name="price"
+            placeholder="Price"
+            className="input w-full max-w-xs"
+            value={prodPrice}
+            onChange={(e) => setProdPrice(e.target.value)}
+          />
+          {/* description */}
+          <textarea
+            className="textarea"
+            name="description"
+            placeholder="Product description"
+            value={prodDesc}
+            onChange={(e) => setProdDesc(e.target.value)}
+          ></textarea>
+          {/* category id */}
+          <select
+            className="select w-full max-w-xs"
+            name="category"
+            // value={prodCategory}
+            onChange={(e) =>
+              setProdCategory(e.target.selectedOptions[0].ariaLabel)
+            }
+          >
+            <option disabled selected>
+              Select the product category
+            </option>
+            {categories?.map((catg) => (
+              <option key={catg?._id} aria-label={catg?._id}>
+                {catg?.name}
+              </option>
+            ))}
+          </select>
+
+          {/* submit button */}
+          <button type="submit" className="btn btn-outline">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      {/* Delete a product */}
+
+      <div className="flex flex-col justify-center ml-[60px] mt-[50px] ">
+        <h2 className="text-4xl">Delete Product</h2>
+        <div>
+          <select
+            className="select select-bordered w-full max-w-xs mt-[30px]"
+            onChange={(e) =>
+              setDelProduct(e.target.selectedOptions[0].ariaLabel)
+            }
+          >
+            {productsStore.map((prod) => (
+              <option key={prod?._id} aria-label={prod._id}>
+                {prod.name} - {prod._id}
+              </option>
+            ))}
+          </select>
+          <button className="btn btn-error ml-8" onClick={deleteProduct}>
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
