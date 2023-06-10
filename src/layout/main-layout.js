@@ -35,21 +35,18 @@ const MainLayout = ({ children }) => {
     });
   };
 
-  if (isUserLogged) {
-    useEffect(() => {
-      console.log("loooooo", isUserLogged);
+  useEffect(() => {
+    console.log("loooooo", isUserLogged);
 
+    getAllProducts();
+    getCollections();
+    if (isUserLogged) {
       initializeRazorpay("https://checkout.razorpay.com/v1/checkout.js");
-      getAllProducts();
-      getCollections();
-
       router.push("/");
-    }, []);
-  } else {
-    useEffect(() => {
+    } else {
       router.push("/login");
-    }, []);
-  }
+    }
+  }, [isUserLogged]);
 
   const getAllProducts = async () => {
     const res = await getProducts();

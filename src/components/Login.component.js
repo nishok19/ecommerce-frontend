@@ -18,7 +18,11 @@ const Login = () => {
   if (isUserLogged) {
     useEffect(() => {
       router.push("/");
-    });
+    }, []);
+  } else {
+    useEffect(() => {
+      router.push("/login");
+    }, []);
   }
 
   const loginUser = async (e) => {
@@ -26,7 +30,7 @@ const Login = () => {
     const user = { email, password: passwd };
     const res = await login(user);
 
-    if (res.success) {
+    if (!res.success) {
       router.push("/login");
     } else {
       dispatch(addUserStore(res.user));
