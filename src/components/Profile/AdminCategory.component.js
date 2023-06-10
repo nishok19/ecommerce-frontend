@@ -69,7 +69,7 @@ const Category = () => {
           <input
             type="text"
             placeholder="Category"
-            className="input input-bordered focus:outline-none"
+            className="input input-bordered focus:outline-none bg-white"
             value={collectionName}
             onChange={(e) => setCollectionName(e.target.value)}
           />
@@ -98,7 +98,7 @@ const Category = () => {
                 </option>
               ))}
             </select>
-            <label className="ml-5">
+            <label className="btn">
               <ConfirmModal
                 btnTitle={"Delete"}
                 title={"Confirm"}
