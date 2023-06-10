@@ -1,23 +1,32 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { addUserStore } from "src/slices/userSlice";
 import { login } from "src/utils/auth.utils";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const user = useSelector((state) => state.user.user);
+  const isUserLogged = !!user?.email;
+
   const [email, setEmail] = useState("");
   const [passwd, setPasswd] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
+
+  if (isUserLogged) {
+    useEffect(() => {
+      router.push("/");
+    });
+  }
 
   const loginUser = async (e) => {
     e.preventDefault();
     const user = { email, password: passwd };
     const res = await login(user);
 
-    if (!res.success) {
+    if (res.success) {
       router.push("/login");
     } else {
       dispatch(addUserStore(res.user));

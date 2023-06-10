@@ -35,20 +35,21 @@ const MainLayout = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    // Loading Razor-Pay scripts
-    initializeRazorpay("https://checkout.razorpay.com/v1/checkout.js");
-  });
+  if (isUserLogged) {
+    useEffect(() => {
+      console.log("loooooo", isUserLogged);
 
-  useEffect(() => {
-    if (isUserLogged) {
-      return;
-    }
-    getAllProducts();
-    getCollections();
+      initializeRazorpay("https://checkout.razorpay.com/v1/checkout.js");
+      getAllProducts();
+      getCollections();
 
-    router.push("/");
-  }, [isUserLogged]);
+      router.push("/");
+    }, []);
+  } else {
+    useEffect(() => {
+      router.push("/login");
+    }, []);
+  }
 
   const getAllProducts = async () => {
     const res = await getProducts();
@@ -69,7 +70,7 @@ const MainLayout = ({ children }) => {
       return null;
     }
     dispatch(addProductsStore(res?.products));
-    dispatch(addUserStore(res.user));
+    dispatch(addUserStore(res?.user));
     return;
   };
 
