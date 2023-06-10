@@ -34,3 +34,18 @@ export const addNewCollection = async (name) => {
     return { success: false, err };
   }
 };
+
+export const deleteCollection = async (id) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `${baseUrl}/api/collection/${id}`,
+    });
+
+    if (!res) throw new Error("Error in 'Deleting Collection'");
+    return { success: true, user: res.data };
+  } catch (err) {
+    console.log("Error in delete collection", err);
+    return { success: false, err };
+  }
+};

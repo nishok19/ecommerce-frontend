@@ -19,20 +19,20 @@ const ConfirmModal = ({ btnTitle, title, description, isConfirmDialog }) => {
           <h3 className="font-bold text-lg">{title}</h3>
           <p className="py-4">{description}</p>
           <div className="modal-action">
-            <button
+            <label
               htmlFor="my-modal-confirm-dialog"
               className="btn"
               onClick={() => isConfirmDialog(true)}
             >
               Confirm
-            </button>
-            <button
+            </label>
+            <label
               htmlFor="my-modal-confirm-dialog"
               className="btn"
               onClick={() => isConfirmDialog(false)}
             >
               Cancel
-            </button>
+            </label>
           </div>
         </div>
       </div>

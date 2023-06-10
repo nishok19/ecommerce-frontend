@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToastStore } from "src/slices/toastSlice";
-import { addNewCollection } from "src/utils/collection.utils";
+import { addNewCollection, deleteCollection } from "src/utils/collection.utils";
 import ConfirmModal from "../ConfirmModal.component";
 
 const Category = () => {
   const [collectionName, setCollectionName] = useState("");
-  const [delCollectionName, setDelCollectionName] = useState("");
+  const [delCollectionId, setDelCollectionId] = useState("");
   const categoryStore = useSelector((state) => state.category.category);
 
   const dispatch = useDispatch();
@@ -38,9 +38,24 @@ const Category = () => {
     console.log("Success...created the category");
   };
 
-  const deleteCollection = async (isConfirm) => {
-    if (isConfirm) console.log("wwwoooooo");
-    else console.log("weeeeeeeeeeeee");
+  const delCollection = async (isConfirm) => {
+    if (!isConfirm) return;
+    const res = deleteCollection(delCollectionId);
+    if (!res.success) {
+      dispatch(
+        addToastStore({
+          msg: "Error deleting a category/collection",
+          type: "error",
+        })
+      );
+    }
+
+    dispatch(
+      addToastStore({
+        msg: "Deleted the category/collection",
+        type: "success",
+      })
+    );
   };
 
   return (
@@ -70,22 +85,25 @@ const Category = () => {
           <div className="input-group">
             <select
               className="select select-bordered"
-              value={delCollectionName}
-              onChange={(e) => setDelCollectionName(e.target.value)}
+              onChange={(e) =>
+                setDelCollectionId(e.target.selectedOptions[0].ariaLabel)
+              }
             >
               <option disabled selected>
-                Pick category
+                Pick a category
               </option>
               {categoryStore.map((cat) => (
-                <option key={cat?._id}>{cat?.name}</option>
+                <option key={cat?._id} aria-label={cat._id}>
+                  {cat?.name}
+                </option>
               ))}
             </select>
-            <label className="">
+            <label className="ml-5">
               <ConfirmModal
                 btnTitle={"Delete"}
                 title={"Confirm"}
                 description={"Are you sure you want to delete this category"}
-                isConfirmDialog={deleteCollection}
+                isConfirmDialog={delCollection}
               />
             </label>
           </div>

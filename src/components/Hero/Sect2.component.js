@@ -7,7 +7,7 @@ const Sect2 = () => {
       {/* Section-2 Left section */}
       <div className="flex flex-col items-center justify-around space-y-[20px] basis-1/3">
         {/* Left Section - 1 */}
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-96 text-black shadow-xl">
           <div className="card-body">
             <h2 className="card-title">COUPONS!</h2>
             <p>Get crazy offers using the COUPON code!!</p>

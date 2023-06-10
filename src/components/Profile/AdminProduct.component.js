@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToastStore } from "src/slices/toastSlice";
 import { addProducts } from "src/utils/products.utils";
+import ConfirmModal from "../ConfirmModal.component";
 
 const Product = () => {
   const [prodName, setProdName] = useState("");
@@ -57,8 +58,8 @@ const Product = () => {
     console.log("successs ressss......", res);
   };
 
-  const deleteProduct = () => {
-    console.log("first", delProduct);
+  const delProd = async (isConifrm) => {
+    console.log("dsf", isConifrm);
   };
 
   return (
@@ -138,15 +139,24 @@ const Product = () => {
               setDelProduct(e.target.selectedOptions[0].ariaLabel)
             }
           >
+            <option disabled selected>
+              Pick a product
+            </option>
             {productsStore.map((prod) => (
               <option key={prod?._id} aria-label={prod._id}>
                 {prod.name} - {prod._id}
               </option>
             ))}
           </select>
-          <button className="btn btn-error ml-8" onClick={deleteProduct}>
+          {/* <button className="btn btn-error ml-8" onClick={deleteProduct}>
             Delete
-          </button>
+          </button> */}
+          <ConfirmModal
+            btnTitle={"Delete"}
+            title={"Confirm"}
+            description={"Are you sure you want to delete this product"}
+            isConfirmDialog={delProd}
+          />
         </div>
       </div>
     </div>

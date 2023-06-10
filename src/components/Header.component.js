@@ -97,7 +97,7 @@ const Header = () => {
             placeholder="Type here"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="input w-full max-w-[30rem] text-black"
+            className="input w-full max-w-[30rem] text-black bg-[#fff]"
           />
         </div>
         <div className="basis-1/3 ml-6 items-center flex">

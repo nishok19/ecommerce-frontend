@@ -89,12 +89,12 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <>
+    <div className="bg-[#fff]">
       <Toast />
       {isUserLogged ? <Header /> : null}
       {children}
       {isUserLogged ? <Footer /> : null}
-    </>
+    </div>
   );
 };
 // };
