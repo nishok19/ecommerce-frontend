@@ -1,5 +1,40 @@
+import { useSelector } from "react-redux";
+
 const ProfileNav = ({ selectedNav, setSelectedNav }) => {
+  const user = useSelector((state) => state.user.user);
+  const userRole = user?.role;
+
   const selectedOptionStyle = "bg-purple-100 text-background-hover";
+
+  const AdminNav = () => {
+    return (
+      <>
+        <h3 className="text-lg font-medium text-center text-background-hover ">
+          Admin Settings
+        </h3>
+
+        <button
+          className={
+            "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
+            (selectedNav === "Category" ? selectedOptionStyle : "")
+          }
+          onClick={() => setSelectedNav("Category")}
+        >
+          Category
+        </button>
+
+        <button
+          className={
+            "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
+            (selectedNav === "Products" ? selectedOptionStyle : "")
+          }
+          onClick={() => setSelectedNav("Products")}
+        >
+          Products
+        </button>
+      </>
+    );
+  };
 
   return (
     <nav aria-label="Main Nav" className="flex flex-col space-y-1 w-[12rem] ">
@@ -34,31 +69,9 @@ const ProfileNav = ({ selectedNav, setSelectedNav }) => {
       </button>
 
       {/* --------Admin Settings------------ */}
-
-      <h3 className="text-lg font-medium text-center text-background-hover ">
-        Admin Settings
-      </h3>
-
-      <button
-        className={
-          "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "Category" ? selectedOptionStyle : "")
-        }
-        onClick={() => setSelectedNav("Category")}
-      >
-        Category
-      </button>
-
-      <button
-        className={
-          "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 " +
-          (selectedNav === "Products" ? selectedOptionStyle : "")
-        }
-        onClick={() => setSelectedNav("Products")}
-      >
-        Products
-      </button>
+      {userRole == "ADMIN" ? <AdminNav /> : null}
     </nav>
   );
 };
+
 export default ProfileNav;
