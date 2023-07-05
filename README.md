@@ -1,38 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ecommerce Application
 
-## Getting Started
+    This is a Ecommerce Fullstack javascript web application with designed to provide seamless, intuitive user interface and security in mind which is totally build with modern technologies and framework.
 
-First, run the development server:
+> ## **Key Features**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- User Authentication
+- Cart and Product purchase list
+- Secure payment using Razorpay
+- Searching and Filtering
+- Admin Dashboard
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Technologies Used
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+> Frontend
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Next Js
+- Redux
+- Tailwind CSS
+  > Backend
+- Express Js
+- Mongoose
+- JWT
+- Razorpay
+- AWS
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## **Application Screenshots:**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![hero1](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/hero1.png?raw=true)
 
-## Learn More
+![hero2](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/hero2.png?raw=truehttps://github.com/nishok19/portfolio/blob/main/public/images/ecom/hero2.png?raw=true)
 
-To learn more about Next.js, take a look at the following resources:
+![footer](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/hero3.png?raw=true)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![products1](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/products1.png?raw=true)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![products2](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/products2.png?raw=true)
 
-## Deploy on Vercel
+![cart](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/cart1.png?raw=true)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![profile1](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/profile1.png?raw=true)
+![profile2](https://github.com/nishok19/portfolio/blob/main/public/images/ecom/profile2.png?raw=true)
